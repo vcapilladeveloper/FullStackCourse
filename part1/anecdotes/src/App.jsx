@@ -14,16 +14,28 @@ const App = () => {
   ]
 
   const [selected, setSelected] = useState(0)
-  const [points, setPoints] = useState({0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0})
+  const [points, setPoints] = useState([0, 0, 0, 0, 0, 0, 0, 0])
+  const [maxPointKey, setMaxPointKey] = useState(0)
 
   const randomAnecdote = () => {
     setSelected(Math.floor(Math.random() * anecdotes.length)) 
   }
 
   const addNewVote = () => {
-    const newPoints = { ...points }
+    const newPoints = [ ...points ]
     newPoints[selected] = newPoints[selected] + 1
     setPoints(newPoints)
+    setMaxPointKey(indexOfMaxValue(newPoints))
+  }
+
+  const indexOfMaxValue = (array) => {
+    if (array.length === 0) {
+      return -1
+    }
+  
+    return array.reduce((maxIndex, currentValue, currentIndex) => {
+      return currentValue > array[maxIndex] ? currentIndex : maxIndex
+    }, 0)
   }
 
   return (
@@ -32,6 +44,8 @@ const App = () => {
       <p>has {points[selected]} votes</p>
       <button onClick={addNewVote}>vote</button>
       <button onClick={randomAnecdote}>next anecdote</button>
+      <p>{anecdotes[maxPointKey]}</p>
+      <p>has {points[maxPointKey]} votes</p>
     </div>
   )
 }
