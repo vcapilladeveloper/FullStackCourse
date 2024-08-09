@@ -1,26 +1,6 @@
 import { useState } from 'react'
 import viteLogo from '/vite.svg'
-import Header from './components/Header'
-import Part from './components/Part'
-import Total from './components/Total'
-
-const Content = (props) => {
-  return (
-    <div>
-      {props.course.parts.map(part => <Part key={part.id} title={part.name} number={part.exercises} />)}
-    </div>
-  )
-}
-
-const Course = ({ course }) => {
-  return (
-    <div>
-      <Header course={course} />
-      <Content course={course} />
-      <Total course={course} />
-    </div>
-  )
-}
+import Course from './components/Course'
 
 const App = () => {
   const courses = [
