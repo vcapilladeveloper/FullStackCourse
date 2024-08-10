@@ -20,11 +20,15 @@ const App = () => {
       const personObject = {
         name: newName,
         number: newNumber,
-        id: persons.length + 1
+        id: `${persons.length + 1}`
       }
-      setPersons(persons.concat(personObject))
-      setNewName('')
-      setNewNumber('')
+      axios
+        .post('http://localhost:3001/persons', personObject)
+        .then(response => {
+          setPersons(persons.concat(response.data))
+          setNewName('')
+          setNewNumber('')
+        })
     }
   }
 
@@ -53,7 +57,7 @@ const App = () => {
         setPersons(response.data)
       })
   }
-  
+
   useEffect(hook, [])
 
   return (
@@ -63,7 +67,7 @@ const App = () => {
       <h3>add a new</h3>
       <PersonForm addName={addName} newName={newName} handleNoteChange={handleNoteChange} newNumber={newNumber} handleNumberChange={handleNumberChange} />
       <h3>Numbers</h3>
-      <Persons persons={persons} newFilter={newFilter}/>
+      <Persons persons={persons} newFilter={newFilter} />
     </div>
   )
 }
