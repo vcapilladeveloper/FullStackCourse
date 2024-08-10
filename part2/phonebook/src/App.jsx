@@ -3,6 +3,7 @@ import axios from 'axios'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
+import personsService from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -22,10 +23,10 @@ const App = () => {
         number: newNumber,
         id: `${persons.length + 1}`
       }
-      axios
-        .post('http://localhost:3001/persons', personObject)
-        .then(response => {
-          setPersons(persons.concat(response.data))
+      personsService
+        .create(personObject)
+        .then(returnedPersons => {
+          setPersons(persons.concat(returnedPersons))
           setNewName('')
           setNewNumber('')
         })
@@ -50,11 +51,11 @@ const App = () => {
 
   const hook = () => {
     console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
+    personsService
+      .getAll()
+      .then(returnedPersons => {
         console.log('promise fulfilled')
-        setPersons(response.data)
+        setPersons(returnedPersons)
       })
   }
 
