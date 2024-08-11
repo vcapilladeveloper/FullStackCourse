@@ -48,6 +48,19 @@ const App = () => {
     setNewFilter(event.target.value)
   }
 
+  const deletePerson = (person) => {
+    console.log(`${person}`)
+    if (window.confirm(`Delete ${person.name}`)) {
+    personsService
+        .deletePerson(person.id)
+        .then(returnedPersons => {
+          console.log(returnedPersons)
+          setPersons(persons.filter(person => person.id != returnedPersons.id))
+          setNewName('')
+          setNewNumber('')
+        })
+      }
+  }
 
   const hook = () => {
     console.log('effect')
@@ -68,7 +81,7 @@ const App = () => {
       <h3>add a new</h3>
       <PersonForm addName={addName} newName={newName} handleNoteChange={handleNoteChange} newNumber={newNumber} handleNumberChange={handleNumberChange} />
       <h3>Numbers</h3>
-      <Persons persons={persons} newFilter={newFilter} />
+      <Persons persons={persons} newFilter={newFilter} deletePerson={deletePerson} />
     </div>
   )
 }
