@@ -43,7 +43,7 @@ const App = () => {
             setNewNumber('')
           })
           .catch(error => {
-            showMessage(`${newName}`, true)
+            showMessage(`${error.response.data.error}`, true)
           })
 
       }
