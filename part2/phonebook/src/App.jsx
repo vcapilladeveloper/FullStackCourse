@@ -15,7 +15,7 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState(false)
 
   const showMessage = (name, isError) => {
-    setNotificationMessage(isError ? `Information of ${name} has already been removed from server` : `Added ${name}`)
+    setNotificationMessage(isError ? `${name}` : `Added ${name}`)
     setTimeout(() => {
       setNotificationMessage(null)
     }, 5000)
