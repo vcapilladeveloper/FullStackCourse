@@ -89,7 +89,7 @@ const App = () => {
         .deletePerson(person.id)
         .then(returnedPersons => {
           console.log(returnedPersons)
-          setPersons(persons.filter(person => person.id != returnedPersons.id))
+          setPersons(persons.filter(p => p.id != person.id))
           setNewName('')
           setNewNumber('')
         })
